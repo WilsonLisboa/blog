@@ -4,13 +4,7 @@ include_once 'app/RepositorioUsuario.inc.php';
 $titulo = "Blog Py";
 include_once 'plantillas/documento-declaracion.inc.php';
 include_once 'plantillas/navbar.inc.php';
-?>
-
-
-
-
-
-       
+?>    
     <div class='container'>
             <div class='jumbotron'>
                 <h1>Blog de Paraguay</h1>

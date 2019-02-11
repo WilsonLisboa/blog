@@ -3,6 +3,14 @@ include_once 'app/Conexion.inc.php';
 include_once 'app/RepositorioUsuario.inc.php';
 include_once 'app/ValidadorRegistro.inc.php';
 
+if (isset($_POST['enviar'])){
+    $validador = new ValidadorRegistro($_POST['nombre'], 
+            $_POST['email'], $_POST['clave1'], $_POST['clave2']); /*guarda el nombre al apretar el boton enviar*/
+
+    if ($validador -> registro_valido()){
+        echo "!TODO CORRECTO!";
+    }
+}
 $titulo = "Registro";
 
 include_once 'plantillas/documento-declaracion.inc.php';
@@ -53,32 +61,13 @@ include_once 'plantillas/navbar.inc.php';
                 </div>
                 <div class="panel-body">
                     <form role="form" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                        <div class="form-group">
-                            <label>Nombre de Usuario</label>
-                            <input type="text"class="form-control" name="nombre" placeholder="Usuario">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email"class="form-control" name="email" placeholder="usuario@mail.com">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Contraseña</label>
-                            <input type="password"class="form-control" name="clave1">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Repite la contraseña</label>
-                            <input type="password"class="form-control" name="clave2">
-                        </div>
-
-                        <br>
-                        <button type="submit" class="btn btn-default btn-primary" name="enviar">Enviar Datos</button>
-                        <button type="reset" class="btn btn-default btn-primary" name="limpiar">Limpiar</button>
+                        <?php
+                        if (isset($_POST['enviar'])){
+                            include_once 'plantillas/registro_validado.inc.php';
+                        }else {
+                            include_once 'plantillas/registro_vacio.inc.php';
+                        }
+                        ?>
                     </form>
                 </div>
             </div>

@@ -2,21 +2,29 @@
 
 class ValidadorRegistro {
 
+    private $aviso_inicio;
+    private $aviso_cierre;
+    
     private $nombre;
     private $email;
+    
     private $error_nombre;
     private $error_email;
     private $error_clave1;
     private $error_clave2;
 
     public function __construct($nombre, $email, $clave1, $clave2) {
+        $this -> aviso_inicio = "<br><div class = 'alert alert-danger' role='alert' >";
+        $this -> aviso_cierre = "</div>";
+        
         $this->nombre = "";
         $this->email = "";
 
         $this->error_nombre = $this->validar_nombre($nombre);
         $this->error_email = $this->validar_email($email);
         $this->error_clave1 = $this->validar_clave1($clave1);
-        $this->error_clave2 = $this->validar_clave2($clave2);
+        $this->error_clave2 = $this->validar_clave2($clave1, $clave2);
+        
     }
 
     private function variable_iniciada($variable) {
@@ -28,7 +36,7 @@ class ValidadorRegistro {
     }
 
     private function validar_nombre($nombre) {
-        if (!$this->variable_inciada($nombre)) {
+        if (!$this-> variable_iniciada($nombre)) {
             return "Debes de escribir un nombre de Usuario.";
         } else {
             $this->nombre = $nombre;
@@ -70,7 +78,7 @@ class ValidadorRegistro {
             $this->clave2 = $clave2;
         }
         if ($clave1 !== $clave2) {
-            return"Ambas contraseñas debe de coincidir";
+            return "Ambas contraseñas debe de coincidir";
         }
         return "";
     }
@@ -98,5 +106,44 @@ class ValidadorRegistro {
     public function obtener_error_clave2() {
         return $this->error_clave2;
     }
-
+    public function mostrar_nombre(){
+        if($this-> nombre !== ""){
+            echo 'value="'.$this->nombre.'"';
+        }
+    }
+    public function mostrar_error_nombre() {
+        if($this->error_nombre!==""){
+           echo $this->aviso_inicio . $this->error_nombre . $this->aviso_cierre; 
+        }
+    }
+    public function mostrar_email() {
+        if($this->email !==""){
+           echo 'value="'.$this->email.'"';
+        }
+    }
+    public function mostrar_error_email() {
+        if($this->error_email!==""){
+           echo $this->aviso_inicio . $this->error_email . $this->aviso_cierre; 
+        }
+    }
+    public function mostrar_error_clave1() {
+        if($this->error_clave1!==""){
+           echo $this->aviso_inicio . $this->error_clave1 . $this->aviso_cierre; 
+        }
+    }
+    public function mostrar_error_clave2() {
+        if($this->error_clave2!==""){
+           echo $this->aviso_inicio . $this->error_clave2 . $this->aviso_cierre; 
+        }
+    }
+    public function registro_valido(){
+        if ($this->error_nombre === "" &&
+        $this->error_email === "" &&
+        $this->error_clave1 === "" &&
+        $this->error_clave2 === "" ){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
