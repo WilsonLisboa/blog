@@ -63,7 +63,7 @@ class ValidadorRegistro {
         if (!$this->variable_iniciada($clave1)) {
             return "Debes escribir una contraseña";
         } else {
-            $this->clave1 = $clave1;
+            $this->clave1 = $clave1; 
         }
         return "";
     }
